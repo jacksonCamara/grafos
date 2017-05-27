@@ -56,11 +56,12 @@ export class CadastroGrafoComponent implements OnInit {
       console.log("Aresta Adicionada")
       this.verticeOrigem.arestas.push(new Aresta(this.verticeDestino.rotulo, this.peso))
       this.verticeDestino.arestas.push(new Aresta(this.verticeOrigem.rotulo, this.peso))
-
     } else {
       console.log("Não inserido")
     }
-
+    this.verticeDestinoRotulo = "";
+    this.verticeOrigemRotulo = "";
+    this.peso = null;
     this.grafo.vertices.forEach(v => {
       console.log(v);
     })
@@ -81,7 +82,6 @@ export class CadastroGrafoComponent implements OnInit {
       console.log(this.verticeDestinoRotulo + "Não existe");
       return true;
     }
-
   }
 
 

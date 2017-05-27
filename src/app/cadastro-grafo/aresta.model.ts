@@ -6,4 +6,6 @@ export class Aresta{
         this.rotuloVerticeAdjacente = rotuloVerticeAdjacente;
         this.peso = peso;
     }
+
+    
 }
