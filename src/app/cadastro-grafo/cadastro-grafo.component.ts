@@ -113,7 +113,7 @@ export class CadastroGrafoComponent implements OnInit {
 
 
 
-    
+    /*
    
    this.grafo.vertices.push(new Vertice());
       this.grafo.vertices[0].rotulo = "a";
@@ -152,7 +152,7 @@ export class CadastroGrafoComponent implements OnInit {
       this.grafo.vertices[5].arestas.push(new Aresta("e", 2));
 
 
-/*
+*/
 
  
 
@@ -194,7 +194,7 @@ export class CadastroGrafoComponent implements OnInit {
       this.grafo.vertices[5].arestas.push(new Aresta("c", 3));
       this.grafo.vertices[5].arestas.push(new Aresta("d", 4));
       this.grafo.vertices[5].arestas.push(new Aresta("e", 8));
-   */
+   
   }
 
 }

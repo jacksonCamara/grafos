@@ -12,6 +12,7 @@ export class Prim {
     private verticeAberto: Vertice;
     private verticeCaminho: Vertice;
     private solucao: Array<Solucao> = new Array();
+    private pesoTotal: number = 0;
 
     constructor(vertices: Array<Vertice>, verticeInicial: string) {
         this.verticeInicialRotulo = verticeInicial;
@@ -19,19 +20,24 @@ export class Prim {
     }
 
     public executar(): void {
-        this.analisador();
-
+        this.verticeInicial = this.pesquisaVerticeConjuntoAberto(this.verticeInicialRotulo);
+        if (this.verticeInicial) {
+            this.verticeMaisProximo = undefined;
+            this.menorPeso = undefined;
+            this.adicionaVerticeConjuntoFechado(this.verticeInicial);
+            this.analisador();
+            this.imprimirAberto();
+            this.imprimirFechado();
+            this.imprimirSolucao();
+            this.imprimirPesoTotal();
+        } else {
+            console.log("Vertice Inicial não encontrado")
+        }
     }
 
 
 
     private analisador() {
-        this.verticeInicial = this.pesquisaVerticeConjuntoAberto(this.verticeInicialRotulo);
-        this.verticeMaisProximo = undefined;
-        this.menorPeso = undefined;
-        this.adicionaVerticeConjuntoFechado(this.verticeInicial);
-
-
         while (this.verticesConjuntoAberto.length > 0) {
             this.verticesConjuntoFechado.forEach(v => {
                 v.arestas.forEach(a => {
@@ -46,16 +52,12 @@ export class Prim {
                     }
                 })
             })
-
             this.adicionaVerticeConjuntoFechado(this.verticeMaisProximo);
             this.solucao.push(new Solucao(this.verticeMaisProximo.rotulo, this.verticeCaminho.rotulo));
+            this.pesoTotal += this.menorPeso;
             this.menorPeso = undefined;
             this.verticeMaisProximo = undefined;
         }
-
-        this.imprimirAberto();
-        this.imprimirFechado();
-        this.imprimirSolucao();
     }
 
 
@@ -96,7 +98,7 @@ export class Prim {
         })
     }
 
-    imprimirFechado() {
+    private imprimirFechado() {
         console.log("===================Fechado=========================")
         this.verticesConjuntoFechado.forEach(v => {
             console.log(v);
@@ -104,11 +106,17 @@ export class Prim {
 
     }
 
-    imprimirSolucao() {
+    private imprimirSolucao() {
         console.log("===================Solucao=========================")
         this.solucao.forEach(s => {
             console.log(s.destino + s.origem);
         })
+    }
+
+    private imprimirPesoTotal() {
+        console.log("===================PesoTotal=========================")
+        console.log(this.pesoTotal);
+
     }
 
 
