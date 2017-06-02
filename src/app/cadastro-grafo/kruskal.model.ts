@@ -24,7 +24,9 @@ export class Kruskal {
 
     public executar(): void {
 
-        // this.adicionaVerticeArvore(this.floresta[5].vertices[0], this.floresta[0].vertices[0])
+        //  this.adicionaVerticeArvore(this.floresta[5].vertices[0], this.floresta[0].vertices[0])
+        //  this.adicionaVerticeArvore(this.floresta[4].vertices[0], this.floresta[1].vertices[0])
+        //  this.adicionaVerticeArvore(this.floresta[3].vertices[1], this.floresta[2].vertices[0])
         //  this.imprimirFloresta();
         // console.log(this.floresta[0])
         //   console.log(this.arvoreDiferente(this.floresta[4].vertices[0], this.floresta[3].vertices[0]))
@@ -32,8 +34,7 @@ export class Kruskal {
 
 
         this.analisador();
-        // this.imprimirControle();
-        // this.imprimirFloresta();
+
 
     }
 
@@ -41,11 +42,17 @@ export class Kruskal {
         console.log("=============================== ITERAÇÃO =========================================")
         this.imprimirSolucoes();
         this.imprimirControle();
+
         let cont = 0;
+        //this.floresta.length != 1
         while (cont < 6) {
             cont++;
             this.controles.forEach(c => {
+                console.log(this.arvoreDiferente(c.verticeOrigem, c.verticeDestino))
                 if (this.arvoreDiferente(c.verticeOrigem, c.verticeDestino)) {
+                    console.log("arvore diferente");
+                    console.log(c.verticeOrigem)
+                    console.log(c.verticeDestino)
                     if (c.peso < this.menorPeso || this.menorPeso == undefined) {
                         this.controleSelecionado = c;
                         this.menorPeso = c.peso;
@@ -54,14 +61,39 @@ export class Kruskal {
             })
 
             this.solucoes.push(new Solucao(this.controleSelecionado.verticeOrigem, this.controleSelecionado.verticeDestino));
-            this.removeControle(this.controleSelecionado);
+
             this.adicionaVerticeArvore(this.controleSelecionado.verticeOrigem, this.controleSelecionado.verticeDestino);
+            this.removeControle(this.controleSelecionado);
             console.log("=============================== ITERAÇÃO =========================================")
             this.imprimirSolucoes();
             this.imprimirControle();
+            this.imprimirFloresta();
             this.menorPeso = undefined;
             this.controleSelecionado = undefined;
             this.pesoTotal += this.menorPeso;
+        }
+    }
+
+    //Adiciona o vertice na arvore correspondente 
+    //Pega o vertice Forasteiro e adiciona da arvore do vertice da casa
+    //
+    private adicionaVerticeArvore(verticeDaCasa: Vertice, verticeForasteiro: Vertice): void {
+        console.log("++++++++++++++++adicionando na arvore++++++++")
+        console.log(verticeDaCasa)
+        console.log(verticeForasteiro)
+        let indexArvore: number = this.pesquisaIndexArvore(verticeForasteiro);
+        this.floresta[this.pesquisaIndexArvore(verticeDaCasa)].vertices.push(verticeForasteiro)
+        this.removeVerticeArvore(verticeForasteiro, indexArvore)
+
+    }
+
+
+    //Remove o vertice da arvore, ação executada quando o vertice vai para outra árvore
+    private removeVerticeArvore(verticeRemover: Vertice, indexArvore: number) {
+        let indexVertice = this.pesquisaIndexVertice(verticeRemover, indexArvore)
+        this.floresta[indexArvore].vertices.splice(indexVertice, 1);
+        if (this.floresta[indexArvore].vertices.length == 1) {
+            this.removeArvoreVaziaDaFloresta(indexArvore);
         }
     }
 
@@ -69,6 +101,7 @@ export class Kruskal {
 
     //Retorna false se os vertices pertencer a mesma arvore
     private arvoreDiferente(verticeDaCasa: Vertice, verticeForasteiro: Vertice): boolean {
+
         if (this.pesquisaIndexArvore(verticeDaCasa) == this.pesquisaIndexArvore(verticeForasteiro)) {
             return false;
         } else {
@@ -99,8 +132,6 @@ export class Kruskal {
     }
 
 
-
-
     //Retorna o vertice pesquisado pelo rotulo
     private pesquisaPorRotuloVertice(verticeRotulo: string): Vertice {
         return this.vertices.find(v =>
@@ -109,13 +140,6 @@ export class Kruskal {
     }
 
 
-    //Adiciona o vertice na arvore correspondente 
-    //Pega o vertice Forasteiro e adiciona da arvore do vertice da casa
-    //
-    private adicionaVerticeArvore(verticeDaCasa: Vertice, verticeForasteiro: Vertice): void {
-        this.floresta[this.pesquisaIndexArvore(verticeDaCasa)].vertices.push(verticeForasteiro)
-        this.removeVerticeArvore(verticeForasteiro)
-    }
 
     private removeControle(controle: Controle) {
         let index = this.controles.findIndex(c =>
@@ -126,23 +150,9 @@ export class Kruskal {
 
 
 
-
-
-
-    //Remove o vertice da arvore, ação executada quando o vertice vai para outra árvore
-    private removeVerticeArvore(verticeRemover: Vertice) {
-        // console.log("entrou no remove")
-        let indexArvore = this.pesquisaIndexArvore(verticeRemover);
-        let indexVertice = this.pesquisaIndexVertice(verticeRemover, indexArvore)
-        //console.log(this.floresta[indexArvore].vertices[indexVertice]);
-        this.floresta[indexArvore].vertices.splice(indexVertice, 1);
-        this.removeArvoreVaziaDaFloresta(indexArvore);
-    }
-
     //Após deletar o vertice verifica se a arvore esta vazia, se estiver vazia a arvore é deletada
     private removeArvoreVaziaDaFloresta(indexArvore: number): void {
         if (this.floresta[indexArvore].vertices.length == 0) {
-            //delete this.floresta[indexArvore]
             this.floresta.splice(indexArvore, 1);
         }
     }
@@ -165,12 +175,6 @@ export class Kruskal {
 
 
     private imprimirFloresta(): void {
-        //  console.log("=======================Floresta com Index ==========================")
-        //  for (let i = 0; i < this.floresta.length; i++) {
-        //      console.log(i);
-        //     console.log(this.floresta[i]);
-
-        //   }
         console.log("=======================Floresta==========================")
         this.floresta.forEach(f => {
             console.log(f)
@@ -178,7 +182,6 @@ export class Kruskal {
     }
 
     private imprimirControle(): void {
-
         console.log("=======================Controle==========================")
         this.controles.forEach(c => {
             console.log(c.verticeOrigem, c.verticeDestino, c.peso)
@@ -186,7 +189,6 @@ export class Kruskal {
     }
 
     private imprimirSolucoes(): void {
-
         console.log("=======================Solucoes==========================")
         this.solucoes.forEach(c => {
             console.log(c.verticeOrigem, c.verticeDestino)
@@ -202,7 +204,6 @@ class Solucao {
 
     verticeOrigem: Vertice;
     verticeDestino: Vertice;
-
 
     constructor(origem: Vertice, destino: Vertice) {
         this.verticeOrigem = origem;
