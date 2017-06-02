@@ -3,6 +3,7 @@ import { Vertice } from './vertice.model';
 import { Grafo } from './grafo.model';
 import { Aresta } from './aresta.model';
 import { Prim } from './prim.model';
+import { Kruskal } from './kruskal.model';
 
 @Component({
   selector: 'app-cadastro-grafo',
@@ -90,14 +91,13 @@ export class CadastroGrafoComponent implements OnInit {
 
 
   public prim() {
-    //this.verticeInicial ="b"; // para teste
-    console.log(this.verticeInicial);
     var prim: Prim = new Prim(this.grafo.vertices, this.verticeInicial);
     prim.executar();
   }
 
   public kruskal() {
-
+    let kruskal: Kruskal = new Kruskal(this.grafo.vertices, this.verticeInicial);
+    kruskal.executar();
   }
 
   public imprimir() {

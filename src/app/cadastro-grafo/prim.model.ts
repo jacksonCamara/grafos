@@ -1,6 +1,7 @@
 import { Grafo } from "./grafo.model"
 import { Vertice } from "./vertice.model"
 
+
 export class Prim {
 
     private verticeInicialRotulo: string = null;
@@ -119,81 +120,6 @@ export class Prim {
 
     }
 
-
-
-
-
-    /*
-    
-
-
-        let cont = 0;
-        while (this.verticesConjuntoAberto.length != 0) {
-            this.verticesConjuntoFechado.forEach(v => {
-                v.arestas.forEach(a => {
-                    if (a.peso < menorPeso) {
-                        let verticeAberto = this.pesquisaVerticeConjuntoAberto(a.rotuloVerticeAdjacente)
-                        if (verticeAberto != undefined) {
-                            verticeMaisProximo = verticeAberto;
-                            menorPeso = a.peso;
-                        }
-                    }
-                })
-            })
-            this.adicionaVerticeConjuntoFechado(verticeMaisProximo)
-            cont++;
-            if (cont > 100) {
-                break;
-            }
-            console.log("=======================Aberto============================")
-            console.log(this.imprimirAberto());
-            console.log("=======================Fechado============================")
-            console.log(this.imprimirFechado());
-        }
-
-
-
-    
-        private aberto: Grafo = new Grafo();
-        private fechado: Grafo = new Grafo();
-        private verticeInicialRotulo: string;
-        private verticeInicial: Vertice;
-        private abertoAux: Array<Vertice> = new Array();
-    
-        constructor(grafo: Grafo, verticeInicialRotulo: string) {
-            this.aberto = grafo;
-            this.verticeInicialRotulo = verticeInicialRotulo;
-        }
-    
-        public iniciar() {
-            this.verticeInicial = this.pesquisaVertice(this.verticeInicialRotulo);
-            this.abertoAux = this.pesquisaVerticeAberto();
-    
-        }
-    
-    
-        private pesquisaVerticeAberto(): Vertice[] {
-            return this.aberto.vertices.filter(v => {
-                return this.verticeInicial.arestas.find(a =>
-                    v.rotulo == a.rotuloVerticeAdjacente
-                )
-            })
-        }
-    
-        private menorCaminho(){
-            return this.abertoAux.forEach(a =>{
-                if(a.rotulo == this.verticeInicial.rotulo){
-                }
-            })
-        }
-    
-    
-    
-    
-        private pesquisaVertice(verticeInicialRotulo: string): Vertice {
-            return this.aberto.vertices.find(v => v.rotulo == verticeInicialRotulo)
-        }
-    */
 
 }
 export class Solucao {
