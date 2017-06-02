@@ -45,14 +45,11 @@ export class Kruskal {
 
         let cont = 0;
         //this.floresta.length != 1
-        while (cont < 6) {
+        while (this.floresta.length > 1) {
             cont++;
             this.controles.forEach(c => {
                 console.log(this.arvoreDiferente(c.verticeOrigem, c.verticeDestino))
                 if (this.arvoreDiferente(c.verticeOrigem, c.verticeDestino)) {
-                    console.log("arvore diferente");
-                    console.log(c.verticeOrigem)
-                    console.log(c.verticeDestino)
                     if (c.peso < this.menorPeso || this.menorPeso == undefined) {
                         this.controleSelecionado = c;
                         this.menorPeso = c.peso;
@@ -81,20 +78,21 @@ export class Kruskal {
         console.log("++++++++++++++++adicionando na arvore++++++++")
         console.log(verticeDaCasa)
         console.log(verticeForasteiro)
-        let indexArvore: number = this.pesquisaIndexArvore(verticeForasteiro);
-        this.floresta[this.pesquisaIndexArvore(verticeDaCasa)].vertices.push(verticeForasteiro)
-        this.removeVerticeArvore(verticeForasteiro, indexArvore)
-
+        let indexArvoreForasteiro: number = this.pesquisaIndexArvore(verticeForasteiro);
+        for (let i = 0; i < this.floresta[indexArvoreForasteiro].vertices.length; i++) {
+            this.floresta[this.pesquisaIndexArvore(verticeDaCasa)].vertices.push(this.floresta[indexArvoreForasteiro].vertices[i])
+        }
+        this.removeVerticeArvore(verticeForasteiro, indexArvoreForasteiro)
     }
 
 
     //Remove o vertice da arvore, ação executada quando o vertice vai para outra árvore
     private removeVerticeArvore(verticeRemover: Vertice, indexArvore: number) {
         let indexVertice = this.pesquisaIndexVertice(verticeRemover, indexArvore)
-        this.floresta[indexArvore].vertices.splice(indexVertice, 1);
-        if (this.floresta[indexArvore].vertices.length == 1) {
-            this.removeArvoreVaziaDaFloresta(indexArvore);
-        }
+        this.floresta[indexArvore].vertices.splice(0);
+
+        this.removeArvoreVaziaDaFloresta(indexArvore);
+
     }
 
 
@@ -177,7 +175,8 @@ export class Kruskal {
     private imprimirFloresta(): void {
         console.log("=======================Floresta==========================")
         this.floresta.forEach(f => {
-            console.log(f)
+            console.log("-------------------------------------")
+            console.log(JSON.stringify(f))
         })
     }
 

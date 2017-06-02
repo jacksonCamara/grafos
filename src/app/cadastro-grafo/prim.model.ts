@@ -37,7 +37,6 @@ export class Prim {
     }
 
 
-
     private analisador() {
         while (this.verticesConjuntoAberto.length > 0) {
             this.verticesConjuntoFechado.forEach(v => {

@@ -154,47 +154,47 @@ export class CadastroGrafoComponent implements OnInit {
 
 */
 
- 
 
-   this.grafo.vertices.push(new Vertice());
-      this.grafo.vertices[0].rotulo = "a";
-      this.grafo.vertices.push(new Vertice());
-      this.grafo.vertices[1].rotulo = "b";
-      this.grafo.vertices.push(new Vertice());
-      this.grafo.vertices[2].rotulo = "c";
-      this.grafo.vertices.push(new Vertice());
-      this.grafo.vertices[3].rotulo = "d";
-      this.grafo.vertices.push(new Vertice());
-      this.grafo.vertices[4].rotulo = "e";
-      this.grafo.vertices.push(new Vertice());
-      this.grafo.vertices[5].rotulo = "f";
-      //Arestas vertice A
-      this.grafo.vertices[0].arestas.push(new Aresta("c", 7));
-      this.grafo.vertices[0].arestas.push(new Aresta("d", 2));
-      this.grafo.vertices[0].arestas.push(new Aresta("e", 10));
-      //Arestas vertice B
-      this.grafo.vertices[1].arestas.push(new Aresta("c", 3));
-      this.grafo.vertices[1].arestas.push(new Aresta("f", 2));
-      //Arestas vertice C
-      this.grafo.vertices[2].arestas.push(new Aresta("a", 7));
-      this.grafo.vertices[2].arestas.push(new Aresta("b", 3));
-      this.grafo.vertices[2].arestas.push(new Aresta("e", 9));
-      this.grafo.vertices[2].arestas.push(new Aresta("f", 3));
-      //Arestas vertice D
-      this.grafo.vertices[3].arestas.push(new Aresta("a", 2));
-      this.grafo.vertices[3].arestas.push(new Aresta("e", 7));
-      this.grafo.vertices[3].arestas.push(new Aresta("f", 4));
-      //Arestas vertice E
-      this.grafo.vertices[4].arestas.push(new Aresta("a", 10));
-      this.grafo.vertices[4].arestas.push(new Aresta("c", 9));
-      this.grafo.vertices[4].arestas.push(new Aresta("d", 7));
-      this.grafo.vertices[4].arestas.push(new Aresta("f", 8));
-      //Arestas vertice F
-      this.grafo.vertices[5].arestas.push(new Aresta("b", 2));
-      this.grafo.vertices[5].arestas.push(new Aresta("c", 3));
-      this.grafo.vertices[5].arestas.push(new Aresta("d", 4));
-      this.grafo.vertices[5].arestas.push(new Aresta("e", 8));
-   
+
+    this.grafo.vertices.push(new Vertice());
+    this.grafo.vertices[0].rotulo = "a";
+    this.grafo.vertices.push(new Vertice());
+    this.grafo.vertices[1].rotulo = "b";
+    this.grafo.vertices.push(new Vertice());
+    this.grafo.vertices[2].rotulo = "c";
+    this.grafo.vertices.push(new Vertice());
+    this.grafo.vertices[3].rotulo = "d";
+    this.grafo.vertices.push(new Vertice());
+    this.grafo.vertices[4].rotulo = "e";
+    this.grafo.vertices.push(new Vertice());
+    this.grafo.vertices[5].rotulo = "f";
+    //Arestas vertice A
+    this.grafo.vertices[0].arestas.push(new Aresta("c", 7));
+    this.grafo.vertices[0].arestas.push(new Aresta("d", 2));
+    this.grafo.vertices[0].arestas.push(new Aresta("e", 1));
+    //Arestas vertice B
+    this.grafo.vertices[1].arestas.push(new Aresta("c", 3));
+    this.grafo.vertices[1].arestas.push(new Aresta("f", 2));
+    //Arestas vertice C
+    this.grafo.vertices[2].arestas.push(new Aresta("a", 7));
+    this.grafo.vertices[2].arestas.push(new Aresta("b", 3));
+    this.grafo.vertices[2].arestas.push(new Aresta("e", 9));
+    this.grafo.vertices[2].arestas.push(new Aresta("f", 3));
+    //Arestas vertice D
+    this.grafo.vertices[3].arestas.push(new Aresta("a", 2));
+    this.grafo.vertices[3].arestas.push(new Aresta("e", 10));
+    this.grafo.vertices[3].arestas.push(new Aresta("f", 4));
+    //Arestas vertice E
+    this.grafo.vertices[4].arestas.push(new Aresta("a", 1));
+    this.grafo.vertices[4].arestas.push(new Aresta("c", 9));
+    this.grafo.vertices[4].arestas.push(new Aresta("d", 10));
+    this.grafo.vertices[4].arestas.push(new Aresta("f", 8));
+    //Arestas vertice F
+    this.grafo.vertices[5].arestas.push(new Aresta("b", 2));
+    this.grafo.vertices[5].arestas.push(new Aresta("c", 3));
+    this.grafo.vertices[5].arestas.push(new Aresta("d", 4));
+    this.grafo.vertices[5].arestas.push(new Aresta("e", 8));
+
   }
 
 }
