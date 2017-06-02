@@ -27,8 +27,7 @@ export class Prim {
             this.menorPeso = undefined;
             this.adicionaVerticeConjuntoFechado(this.verticeInicial);
             this.analisador();
-            this.imprimirAberto();
-            this.imprimirFechado();
+            console.log("=================== PRIM ===========================")
             this.imprimirSolucao();
             this.imprimirPesoTotal();
         } else {

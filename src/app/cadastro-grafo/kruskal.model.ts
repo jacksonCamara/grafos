@@ -6,13 +6,14 @@ export class Kruskal {
     private solucao: Array<Solucao> = new Array();
     private controle: Array<Vertice>;
     private menorPeso: number;
-    private pesoTotal: number;
+    private pesoTotal: number = 0;
     private verticeMaixProximo: string;
     private verticeAnalisado: Vertice;
     private vertices: Array<Vertice>;
     private controles: Array<Controle> = new Array();
     private controleSelecionado: Controle;
     private solucoes: Array<Solucao> = new Array();
+
     constructor(vertices: Array<Vertice>, verticeInicial: string) {
         this.vertices = vertices;
         for (let i = 0; i < vertices.length; i++) {
@@ -23,32 +24,15 @@ export class Kruskal {
     }
 
     public executar(): void {
-
-        //  this.adicionaVerticeArvore(this.floresta[5].vertices[0], this.floresta[0].vertices[0])
-        //  this.adicionaVerticeArvore(this.floresta[4].vertices[0], this.floresta[1].vertices[0])
-        //  this.adicionaVerticeArvore(this.floresta[3].vertices[1], this.floresta[2].vertices[0])
-        //  this.imprimirFloresta();
-        // console.log(this.floresta[0])
-        //   console.log(this.arvoreDiferente(this.floresta[4].vertices[0], this.floresta[3].vertices[0]))
-        //    this.imprimirControle();
-
-
+        console.log("=================== KRUSKAL ===========================")
         this.analisador();
-
-
     }
 
     private analisador(): void {
-        console.log("=============================== ITERAÇÃO =========================================")
-        this.imprimirSolucoes();
-        this.imprimirControle();
-
-        let cont = 0;
-        //this.floresta.length != 1
         while (this.floresta.length > 1) {
-            cont++;
+            //   this.imprimirFloresta();
             this.controles.forEach(c => {
-                console.log(this.arvoreDiferente(c.verticeOrigem, c.verticeDestino))
+                // console.log(this.arvoreDiferente(c.verticeOrigem, c.verticeDestino))
                 if (this.arvoreDiferente(c.verticeOrigem, c.verticeDestino)) {
                     if (c.peso < this.menorPeso || this.menorPeso == undefined) {
                         this.controleSelecionado = c;
@@ -56,28 +40,33 @@ export class Kruskal {
                     }
                 }
             })
-
+            this.pesoTotal += this.menorPeso;
             this.solucoes.push(new Solucao(this.controleSelecionado.verticeOrigem, this.controleSelecionado.verticeDestino));
-
             this.adicionaVerticeArvore(this.controleSelecionado.verticeOrigem, this.controleSelecionado.verticeDestino);
             this.removeControle(this.controleSelecionado);
-            console.log("=============================== ITERAÇÃO =========================================")
-            this.imprimirSolucoes();
-            this.imprimirControle();
-            this.imprimirFloresta();
             this.menorPeso = undefined;
             this.controleSelecionado = undefined;
-            this.pesoTotal += this.menorPeso;
+
+            // this.imprimirFloresta();
         }
+        this.imprimirSolucoes();
+        console.log("===================PesoTotal=========================")
+        console.log(this.pesoTotal);
     }
+
+
+
+
+
+
+
+
+
+
 
     //Adiciona o vertice na arvore correspondente 
     //Pega o vertice Forasteiro e adiciona da arvore do vertice da casa
-    //
     private adicionaVerticeArvore(verticeDaCasa: Vertice, verticeForasteiro: Vertice): void {
-        console.log("++++++++++++++++adicionando na arvore++++++++")
-        console.log(verticeDaCasa)
-        console.log(verticeForasteiro)
         let indexArvoreForasteiro: number = this.pesquisaIndexArvore(verticeForasteiro);
         for (let i = 0; i < this.floresta[indexArvoreForasteiro].vertices.length; i++) {
             this.floresta[this.pesquisaIndexArvore(verticeDaCasa)].vertices.push(this.floresta[indexArvoreForasteiro].vertices[i])
@@ -85,21 +74,15 @@ export class Kruskal {
         this.removeVerticeArvore(verticeForasteiro, indexArvoreForasteiro)
     }
 
-
     //Remove o vertice da arvore, ação executada quando o vertice vai para outra árvore
     private removeVerticeArvore(verticeRemover: Vertice, indexArvore: number) {
         let indexVertice = this.pesquisaIndexVertice(verticeRemover, indexArvore)
         this.floresta[indexArvore].vertices.splice(0);
-
         this.removeArvoreVaziaDaFloresta(indexArvore);
-
     }
-
-
 
     //Retorna false se os vertices pertencer a mesma arvore
     private arvoreDiferente(verticeDaCasa: Vertice, verticeForasteiro: Vertice): boolean {
-
         if (this.pesquisaIndexArvore(verticeDaCasa) == this.pesquisaIndexArvore(verticeForasteiro)) {
             return false;
         } else {
@@ -107,8 +90,7 @@ export class Kruskal {
         }
     }
 
-
-    //monta o controle, inserindo os vertices que possuem arestas entre eles
+    //Monta o controle, inserindo os vertices que possuem arestas entre eles
     private montaControle() {
         this.vertices.forEach(v => {
             v.arestas.forEach(a => {
@@ -129,7 +111,6 @@ export class Kruskal {
         )
     }
 
-
     //Retorna o vertice pesquisado pelo rotulo
     private pesquisaPorRotuloVertice(verticeRotulo: string): Vertice {
         return this.vertices.find(v =>
@@ -137,16 +118,12 @@ export class Kruskal {
         )
     }
 
-
-
     private removeControle(controle: Controle) {
         let index = this.controles.findIndex(c =>
             c == controle
         )
         this.controles.splice(index, 1);
     }
-
-
 
     //Após deletar o vertice verifica se a arvore esta vazia, se estiver vazia a arvore é deletada
     private removeArvoreVaziaDaFloresta(indexArvore: number): void {
@@ -170,7 +147,6 @@ export class Kruskal {
             v == vertice
         )
     }
-
 
     private imprimirFloresta(): void {
         console.log("=======================Floresta==========================")
@@ -207,7 +183,6 @@ class Solucao {
     constructor(origem: Vertice, destino: Vertice) {
         this.verticeOrigem = origem;
         this.verticeDestino = destino;
-
     }
 }
 
